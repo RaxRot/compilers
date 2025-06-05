@@ -1,0 +1,15 @@
+schedule:
+    task: "refuel"
+    person: "Bob"
+    date: "2025-06-03"
+
+def weekend():
+    unavailable:
+        date: "2025-06-08"
+        reason: "closed"
+
+call weekend
+
+query:
+    type: "schedule"
+    filter: person == "Bob"

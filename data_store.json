@@ -1,0 +1,11 @@
+{
+  "schedule": [
+    {
+      "type": "schedule",
+      "task": "refuel",
+      "person": "Bob",
+      "date": "2025-06-03"
+    }
+  ],
+  "unavailable": []
+}
