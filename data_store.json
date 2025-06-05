@@ -5,7 +5,19 @@
       "task": "refuel",
       "person": "Bob",
       "date": "2025-06-03"
+    },
+    {
+      "type": "schedule",
+      "task": "service",
+      "person": "Julia",
+      "date": "2025-06-25"
     }
   ],
-  "unavailable": []
+  "unavailable": [
+    {
+      "type": "unavailable",
+      "date": "2025-06-05",
+      "reason": "training"
+    }
+  ]
 }
