@@ -3,12 +3,48 @@ schedule:
     person: "Bob"
     date: "2025-06-03"
 
+schedule:
+    task: "service"
+    person: "Julia"
+    date: "2025-06-25"
+
+unavailable:
+    date: "2025-06-05"
+    reason: "training"
+
 def weekend():
     unavailable:
         date: "2025-06-08"
         reason: "closed"
+    batch:
+        schedule:
+            task: "cleanup"
+            person: "Mike"
+            date: "2025-06-09"
+        unavailable:
+            date: "2025-06-10"
+            reason: "holiday"
 
 call weekend
+
+if "day" == "saturday":
+    unavailable:
+        reason: "weekend"
+else:
+    schedule:
+        task: "inspection"
+        person: "Ana"
+        date: "2025-06-10"
+
+batch:
+    schedule:
+        task: "wash"
+        person: "Lucas"
+        date: "2025-06-12"
+
+    unavailable:
+        date: "2025-06-14"
+        reason: "maintenance"
 
 query:
     type: "schedule"
