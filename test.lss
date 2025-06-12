@@ -1,11 +1,11 @@
 schedule:
     task: "refuel"
-    person: "Bob"
+    person: "Vlad"
     date: "2025-06-03"
 
 schedule:
     task: "service"
-    person: "Julia"
+    person: "Daria"
     date: "2025-06-25"
 
 unavailable:
