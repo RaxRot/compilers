@@ -1,18 +1,18 @@
 schedule:
     task: "refuel"
-    person: "Vlad"
+    person: "Vlados"
     date: "2025-06-03"
 
 schedule:
     task: "service"
-    person: "Daria"
+    person: "Darias"
     date: "2025-06-25"
 
 unavailable:
     date: "2025-06-05"
     reason: "training"
 
-def weekend():
+def weekend:
     unavailable:
         date: "2025-06-08"
         reason: "closed"

@@ -21,71 +21,45 @@ def save_data(data):
 
 def execute_command(cmd, data=None):
     if data is None:
-        data = load_data()  # Если данные не переданы — загружаем из файла
+        data = load_data()
 
-    ctype = cmd.get("type")  # Определяем, какой тип команды (например: schedule, call, if, query и т.д.)
+    ctype = cmd.get("type")
 
-
-    # === schedule ===
     if ctype == 'schedule':
-        if 'filter' not in cmd:  # Если это не запрос (query), а обычная задача
-            data['schedule'].append(cmd)  # Добавляем задачу в список
-            save_data(data)  # Сохраняем изменения в файл
+        if 'filter' not in cmd:
+            data['schedule'].append(cmd)
 
-
-
-    # === unavailable ===
-    # Добавляем новую запись о недоступности
     elif ctype == 'unavailable':
-        data['unavailable'].append(cmd)  # Добавляем событие в список недоступностей
-        save_data(data)  # Сохраняем файл
+        data['unavailable'].append(cmd)
 
-
-
-
-    # === def ===
     elif ctype == 'def':
-        variables[cmd['name']] = cmd['body']  # Сохраняем имя функции и её команды (в виде списка)
+        variables[cmd['name']] = cmd['body']
 
-
-
-
-    # === call ===
-    # Выполняем ранее определённую функцию
     elif ctype == 'call':
-        block = variables.get(cmd['name'])  # Получаем команды, которые хранятся под этим именем
-        if block:  # Если нашли такую функцию —
-            for sub in block:  # Проходимся по всем её командам
-                execute_command(sub, data)  # И выполняем их
+        block = variables.get(cmd['name'])
+        if block:
+            for sub in block:
+                data = execute_command(sub, data)  # ✅ ОБЯЗАТЕЛЬНО вернуть обновлённые данные
 
+    elif ctype == 'if':
+        branch = cmd['then'] if eval_condition(cmd['cond']) else cmd['else']
+        for sub in branch:
+            data = execute_command(sub, data)
 
+    elif ctype == 'batch':
+        for sub in cmd['commands']:
+            data = execute_command(sub, data)
 
-        # === if ===
-        # Выполняем then или else в зависимости от условия
-        elif ctype == 'if':
-            # Выбираем ветку then или else в зависимости от результата условия
-            branch = cmd['then'] if eval_condition(cmd['cond']) else cmd['else']
-            for sub in branch:  # Выполняем все команды в выбранной ветке
-                execute_command(sub, data)
+    elif ctype == 'query':
+        results = data.get(cmd['type'], [])
+        filt = cmd.get('filter')
+        if filt:
+            field, op, value = filt
+            if op == '==':
+                results = [r for r in results if r.get(field) == value]
+            print("\n🔎 Query results:", results)
 
-        # === batch ===
-        # Выполняем список команд подряд
-        elif ctype == 'batch':
-            for sub in cmd['commands']:  # Получаем список команд
-                execute_command(sub, data)  # Выполняем каждую
-
-        # === query ===
-        # Выполняем поиск в данных по фильтру
-        elif ctype == 'query':
-            results = data.get(cmd['type'], [])  # Получаем нужный список (например: schedule)
-            filt = cmd.get('filter')  # Проверяем, есть ли фильтр
-
-            if filt:
-                field, op, value = filt  # Разбиваем фильтр на 3 части: поле, оператор и значение
-                if op == '==':  # Сейчас поддерживается только "равно"
-                    results = [r for r in results if r.get(field) == value]  # Оставляем только совпадающие
-
-            print("\n🔎 Query results:", results)  # Выводим результаты на экран
+    return data  # ✅ ОБЯЗАТЕЛЬНО: всегда возвращай обновлённые данные
 
 
 def eval_condition(cond):

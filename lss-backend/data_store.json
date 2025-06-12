@@ -2,22 +2,38 @@
   "schedule": [
     {
       "type": "schedule",
-      "task": "refuel",
-      "person": "Vlad",
-      "date": "2025-06-03"
+      "task": "cleanup",
+      "person": "Mike",
+      "date": "2025-06-09"
     },
     {
       "type": "schedule",
-      "task": "service",
-      "person": "Daria",
-      "date": "2025-06-25"
+      "task": "inspection",
+      "person": "Ana",
+      "date": "2025-06-10"
+    },
+    {
+      "type": "schedule",
+      "task": "wash",
+      "person": "Lucas",
+      "date": "2025-06-12"
     }
   ],
   "unavailable": [
     {
       "type": "unavailable",
-      "date": "2025-06-05",
-      "reason": "training"
+      "date": "2025-06-08",
+      "reason": "closed"
+    },
+    {
+      "type": "unavailable",
+      "date": "2025-06-10",
+      "reason": "holiday"
+    },
+    {
+      "type": "unavailable",
+      "date": "2025-06-14",
+      "reason": "maintenance"
     }
   ]
 }
