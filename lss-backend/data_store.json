@@ -3,13 +3,13 @@
     {
       "type": "schedule",
       "task": "refuel",
-      "person": "Bob",
+      "person": "Vlad",
       "date": "2025-06-03"
     },
     {
       "type": "schedule",
       "task": "service",
-      "person": "Julia",
+      "person": "Daria",
       "date": "2025-06-25"
     }
   ],
